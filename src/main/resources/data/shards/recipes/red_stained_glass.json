@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "glass",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "shards:red_stained_glass_shard"
+    }
+  },
+  "result": {
+    "item": "minecraft:red_stained_glass"
+  }
+}
+
