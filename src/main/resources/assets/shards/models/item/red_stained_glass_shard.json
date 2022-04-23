@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "shards:item/red_stained_glass_shard"
+  }
+}

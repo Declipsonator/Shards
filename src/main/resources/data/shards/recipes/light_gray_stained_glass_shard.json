@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "shards",
+  "pattern": [
+    "WWW",
+    "WRW",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "shards:glass_shard"
+    },
+    "R": {
+      "item": "minecraft:light_gray_dye"
+    }
+  },
+  "result": {
+    "item": "shards:light_gray_stained_glass_shard",
+    "count": 8
+  }
+}
+
