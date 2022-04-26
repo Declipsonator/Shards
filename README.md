@@ -13,7 +13,7 @@ It hurts everytime you break a piece of glass without silk touch. Now you can ge
 <img src="https://github.com/Declipsonator/Shards/blob/main/craft-back.png?raw=true" alt="Crafting them back to glass" width="15%"/>
 
 ## Info
-⚠️This is a Fabric only mod and there are no plans to make a forge version.\
-\
+Forge:https://github.com/Declipsonator/Shards/tree/Forge
+
 The mod must be present on both the server and client for it to work properly.\
 (Exception of singleplayer)
