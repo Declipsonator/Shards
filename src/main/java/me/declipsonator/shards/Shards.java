@@ -4,17 +4,16 @@ import me.declipsonator.shards.items.ShardItems;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.*;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 
 @Mod("shards")
 public class Shards {
-
+    public static final String MODID = "shards";
     private static final Logger LOG = LogManager.getLogger("Shards");
 
     public Shards() {
@@ -40,32 +39,6 @@ public class Shards {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         LOG.info("Initialized Shards");
-    }
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class Events {
-        @SubscribeEvent
-        public static void onItemRegistry(final RegistryEvent.Register<Item> event) {
-            LOG.info("Registering Items");
-            event.getRegistry().register(ShardItems.SHARD_ITEM);
-            event.getRegistry().register(ShardItems.WHITE_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.ORANGE_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.MAGENTA_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.LIGHT_BLUE_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.YELLOW_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.LIME_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.PINK_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.GRAY_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.LIGHT_GRAY_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.CYAN_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.PURPLE_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.BLUE_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.BROWN_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.GREEN_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.RED_SHARD_ITEM);
-            event.getRegistry().register(ShardItems.BLACK_SHARD_ITEM);
-        }
-
     }
 
     // Change glass drops
