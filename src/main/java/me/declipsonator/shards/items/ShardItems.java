@@ -1,11 +1,10 @@
 package me.declipsonator.shards.items;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.DyeColor;
 
 public class ShardItems {
-    public static final ShardItem SHARD_ITEM = new ShardItem(new Item.Settings().group(ItemGroup.MATERIALS));
+    public static final ShardItem SHARD_ITEM = new ShardItem(new Item.Settings());
     public static final StainedShardItem WHITE_SHARD_ITEM = new StainedShardItem(DyeColor.WHITE);
     public static final StainedShardItem ORANGE_SHARD_ITEM = new StainedShardItem(DyeColor.ORANGE);
     public static final StainedShardItem MAGENTA_SHARD_ITEM = new StainedShardItem(DyeColor.MAGENTA);
