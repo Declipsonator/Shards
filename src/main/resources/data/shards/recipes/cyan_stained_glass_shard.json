@@ -15,7 +15,7 @@
     }
   },
   "result": {
-    "item": "shards:cyan_stained_glass_shard",
+    "id": "shards:cyan_stained_glass_shard",
     "count": 8
   }
 }

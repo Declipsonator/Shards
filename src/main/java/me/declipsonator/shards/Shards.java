@@ -9,15 +9,20 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.*;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.predicate.item.EnchantmentsPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.predicate.item.ItemSubPredicateTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Collections;
 
 
 public class Shards implements ModInitializer {
@@ -43,149 +48,151 @@ public class Shards implements ModInitializer {
         Registry.register(Registries.ITEM, new Identifier("shards", "green_stained_glass_shard"), ShardItems.GREEN_SHARD_ITEM);
         Registry.register(Registries.ITEM, new Identifier("shards", "red_stained_glass_shard"), ShardItems.RED_SHARD_ITEM);
         Registry.register(Registries.ITEM, new Identifier("shards", "black_stained_glass_shard"), ShardItems.BLACK_SHARD_ITEM);
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+        LootTableEvents.MODIFY.register((key, tableBuilder, source) -> {
             LootPool.Builder poolBuilder = LootPool.builder()
-                    .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1)))).invert().build());
-
+                    .conditionally(MatchToolLootCondition.builder(
+                            ItemPredicate.Builder.create().subPredicate(ItemSubPredicateTypes.ENCHANTMENTS,
+                                    EnchantmentsPredicate.enchantments(
+                                            Collections.singletonList(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1)))))).invert().build());
             boolean added = false;
-            switch (id.getPath()) {
-                case "blocks/glass" -> {
+            switch (key.getValue().toString()) {
+                case "minecraft:blocks/glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/white_stained_glass" -> {
+                case "minecraft:blocks/white_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.WHITE_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/orange_stained_glass" -> {
+                case "minecraft:blocks/orange_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.ORANGE_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/magenta_stained_glass" -> {
+                case "minecraft:blocks/magenta_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.MAGENTA_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/light_blue_stained_glass" -> {
+                case "minecraft:blocks/light_blue_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.LIGHT_BLUE_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/yellow_stained_glass" -> {
+                case "minecraft:blocks/yellow_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.YELLOW_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/lime_stained_glass" -> {
+                case "minecraft:blocks/lime_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.LIME_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/pink_stained_glass" -> {
+                case "minecraft:blocks/pink_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.PINK_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/gray_stained_glass" -> {
+                case "minecraft:blocks/gray_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.GRAY_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/light_gray_stained_glass" -> {
+                case "minecraft:blocks/light_gray_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.LIGHT_GRAY_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/cyan_stained_glass" -> {
+                case "minecraft:blocks/cyan_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.CYAN_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/purple_stained_glass" -> {
+                case "minecraft:blocks/purple_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.PURPLE_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/blue_stained_glass" -> {
+                case "minecraft:blocks/blue_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.BLUE_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/brown_stained_glass" -> {
+                case "minecraft:blocks/brown_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.BROWN_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/green_stained_glass" -> {
+                case "minecraft:blocks/green_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.GREEN_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/red_stained_glass" -> {
+                case "minecraft:blocks/red_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.RED_SHARD_ITEM));
                     added = true;
                 }
-                case "blocks/black_stained_glass" -> {
+                case "minecraft:blocks/black_stained_glass" -> {
                     poolBuilder.with(ItemEntry.builder(ShardItems.BLACK_SHARD_ITEM));
                     added = true;
                 }
             }
             if(added) tableBuilder.pool(poolBuilder.rolls(UniformLootNumberProvider.create(2, 4)));
             else {
-                switch (id.getPath()) {
-                    case "blocks/glass_pane" -> {
+                switch (key.toString()) {
+                    case "minecraft:blocks/glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/white_stained_glass_pane" -> {
+                    case "minecraft:blocks/white_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.WHITE_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/orange_stained_glass_pane" -> {
+                    case "minecraft:blocks/orange_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.ORANGE_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/magenta_stained_glass_pane" -> {
+                    case "minecraft:blocks/magenta_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.MAGENTA_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/light_blue_stained_glass_pane" -> {
+                    case "minecraft:blocks/light_blue_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.LIGHT_BLUE_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/yellow_stained_glass_pane" -> {
+                    case "minecraft:blocks/yellow_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.YELLOW_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/lime_stained_glass_pane" -> {
+                    case "minecraft:blocks/lime_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.LIME_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/pink_stained_glass_pane" -> {
+                    case "minecraft:blocks/pink_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.PINK_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/gray_stained_glass_pane" -> {
+                    case "minecraft:blocks/gray_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.GRAY_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/light_gray_stained_glass_pane" -> {
+                    case "minecraft:blocks/light_gray_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.LIGHT_GRAY_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/cyan_stained_glass_pane" -> {
+                    case "minecraft:blocks/cyan_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.CYAN_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/purple_stained_glass_pane" -> {
+                    case "minecraft:blocks/purple_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.PURPLE_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/blue_stained_glass_pane" -> {
+                    case "minecraft:blocks/blue_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.BLUE_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/brown_stained_glass_pane" -> {
+                    case "minecraft:blocks/brown_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.BROWN_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/green_stained_glass_pane" -> {
+                    case "minecraft:blocks/green_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.GREEN_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/red_stained_glass_pane" -> {
+                    case "minecraft:blocks/red_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.RED_SHARD_ITEM));
                         added = true;
                     }
-                    case "blocks/black_stained_glass_pane" -> {
+                    case "minecraft:blocks/black_stained_glass_pane" -> {
                         poolBuilder.with(ItemEntry.builder(ShardItems.BLACK_SHARD_ITEM));
                         added = true;
                     }
